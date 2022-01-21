@@ -18,9 +18,11 @@ fill_speed <- function(pa_id){
   p
 }
 
-pas = 1:50681
+pas = 0:50681
 
+updated = data.frame()
 for(i in pas){
-  p = fill_speed(i)
-  updated = rbind(p, fill_speed(i))
+  updated = rbind(updated, fill_speed(i))
+  cat(i, "\n")
 }
+View(updated)
