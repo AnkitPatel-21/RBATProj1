@@ -18,22 +18,22 @@ pitches1 <- merge(select(pitches, -woba), results, by="pa_id") %>%
   arrange(pa_id, PitchofPA)
 
 pitches_final <- mutate(pitches1, ballstrike = paste0(Balls, Strikes)) %>%
-  select(PitcherThrows, BatterSide, TaggedPitchType, AutoPitchType, PitchZone,
-         woba, ballstrike)
+  select(PitcherThrows, BatterSide, PitchCall, TaggedPitchType, AutoPitchType, 
+         PitchZone, woba, ballstrike)
 
 lr <- filter(pitches_final, BatterSide=="Left", PitcherThrows=="Right")
 rr <- filter(pitches_final, BatterSide=="Right", PitcherThrows=="Right")
 rl <- filter(pitches_final, BatterSide=="Right", PitcherThrows=="Left")
 ll <- filter(pitches_final, BatterSide=="Left", PitcherThrows=="Left")
 
-lr_woba <- lr %>% group_by(ballstrike, AutoPitchType, PitchZone) %>%
+lr_woba <- lr %>% group_by(PitchCall, ballstrike, AutoPitchType, PitchZone) %>%
   summarise(xwoba = mean(woba))
 
-rr_woba <- rr %>% group_by(ballstrike, AutoPitchType, PitchZone) %>%
+rr_woba <- rr %>% group_by(PitchCall, ballstrike, AutoPitchType, PitchZone) %>%
   summarise(xwoba = mean(woba))
 
-rl_woba <- rl %>% group_by(ballstrike, AutoPitchType, PitchZone) %>%
+rl_woba <- rl %>% group_by(PitchCall, ballstrike, AutoPitchType, PitchZone) %>%
   summarise(xwoba = mean(woba))
 
-ll_woba <- ll %>% group_by(ballstrike, AutoPitchType, PitchZone) %>%
+ll_woba <- ll %>% group_by(PitchCall, ballstrike, AutoPitchType, PitchZone) %>%
   summarise(xwoba = mean(woba))

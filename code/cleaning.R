@@ -23,7 +23,8 @@ pbp1$AutoPitchType[pbp1$AutoPitchType %in% offspeed] <- "offspeed"
 pbp1$AutoPitchType[pbp1$AutoPitchType %in% fastball] <- "fastball"
 pbp1$AutoPitchType[pbp1$AutoPitchType %in% ignore] <- NA
 pbp1 <- pbp1 %>% filter(!is.na(AutoPitchType)) %>% 
-  mutate(AutoPitchType = str_replace(AutoPitchType, "ChangeUp", "changeup"))
+  mutate(AutoPitchType = str_replace(AutoPitchType, "ChangeUp", "changeup")) %>%
+  mutate(AutoPitchType = str_replace(AutoPitchType, "Changeup", "changeup"))
 
 noswing <- c("BallCalled","StrikeCalled","HitByPitch",
              "BallinDirt","BallIntentional")
@@ -35,4 +36,4 @@ pbp1$PitchCall[pbp1$PitchCall %in% noswing] <- "take"
 pbp1$PitchCall[pbp1$PitchCall %in% ignore] <- NA
 pbp1 <- filter(pbp1, !is.na(PitchCall))
 
-write_csv(pbp1, "autopitchdata.csv")
+write_csv(pbp1, "data/autopitchdata.csv")
